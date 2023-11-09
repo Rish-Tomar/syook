@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAt App</title>
+</head>
+<body>
+   
+    <script src="http://localhost:8005/socket.io/socket.io.js"></script>
+    <script>
+        // socket.io code
+        const socket=io.connect("http://localhost:8005")
+        
+        const form =        document.getElementById('form');
+        const name =        document.getElementById('name');
+        const origin =      document.getElementById('origin');
+        const destination = document.getElementById('destination');
+
+        form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (input.value) {
+            let message={ name:name.value,
+                            origin:origin.value,
+                            destination:destination.value
+            }
+            socket.emit('message',message);
+            name.value=""
+            origin.value=""
+            destination.value=""
+        }
+        });
+    </script>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+    <input id="name"        autocomplete="off" placeholder="Name"/>
+    <input id="origin"      autocomplete="off" placeholder="Origin"/>
+    <input id="destination" autocomplete="off" placeholder="Destination"/>
+    <button>Send</button>
+    </form>
+</body>
+</html>
